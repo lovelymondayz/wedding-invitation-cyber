@@ -1,0 +1,13 @@
+services:
+  web:
+    container_name: wedding-invitation-cyber
+    build: .
+    image: wedding-invitation-cyber:latest
+    ports:
+      - "3014:80"
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

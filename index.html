@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alifa &amp; Daniel — The Wedding</title>
+<meta name="theme-color" content="#0a0314">
+<link rel="stylesheet" href="vendor/fonts.css">
+<style>
+:root{
+  --bg:#0a0314; --ink:#f4ecff; --mute:#bfa8e6;
+  --p1:#7c3aed; --p2:#a855f7; --p3:#c084fc; --neon:#e879f9; --cyan:#67e8f9; --gold:#fbbf24;
+  --songket:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M16 2 30 16 16 30 2 16Z' fill='none' stroke='%23fbbf24' stroke-width='1.4'/><path d='M16 10 22 16 16 22 10 16Z' fill='%23c084fc' fill-opacity='.7'/><circle cx='16' cy='16' r='1.6' fill='%23fbbf24'/></svg>");
+  --rebung:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='18'><path d='M0 18 14 0 28 18Z' fill='%23fbbf24' fill-opacity='.85'/><path d='M7 18 14 8 21 18Z' fill='%236d28d9'/></svg>");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:'Rajdhani',system-ui,sans-serif;font-size:18px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:0;background:
+  radial-gradient(ellipse 80% 55% at 50% -10%,rgba(124,58,237,.55),transparent 70%),
+  radial-gradient(ellipse 60% 40% at 100% 60%,rgba(232,121,249,.18),transparent 70%),
+  radial-gradient(ellipse 60% 40% at 0% 80%,rgba(103,232,249,.10),transparent 70%)}
+#rain{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.32;pointer-events:none}
+.floor{position:fixed;left:-50%;right:-50%;bottom:-8vh;height:55vh;z-index:1;pointer-events:none;
+  transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;
+  background:
+   repeating-linear-gradient(90deg,rgba(192,132,252,.55) 0 1px,transparent 1px 70px),
+   repeating-linear-gradient(0deg,rgba(192,132,252,.55) 0 1px,transparent 1px 70px);
+  background-position:0 var(--gy,0px);
+  -webkit-mask-image:linear-gradient(to top,#000 10%,transparent 95%);mask-image:linear-gradient(to top,#000 10%,transparent 95%)}
+.scan{position:fixed;inset:0;pointer-events:none;z-index:60;background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+main,header,footer,section{position:relative;z-index:2}
+
+/* ---------- type ---------- */
+.orb{font-family:'Orbitron',sans-serif}
+.eyebrow{font-family:'Orbitron';letter-spacing:.5em;font-size:clamp(11px,2.6vw,15px);color:var(--cyan);text-transform:uppercase;text-shadow:0 0 12px rgba(103,232,249,.7)}
+.h2{font-family:'Orbitron';font-weight:700;font-size:clamp(24px,5.4vw,42px);letter-spacing:.12em;text-transform:uppercase;
+  background:linear-gradient(90deg,#fff,#d8b4fe 50%,#e879f9);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(168,85,247,.6))}
+.sub{color:var(--mute);font-size:clamp(17px,2.4vw,21px)}
+.neon{color:var(--neon);text-shadow:0 0 10px rgba(232,121,249,.8)}
+.band{height:32px;background:var(--songket) repeat-x center/auto 100%;opacity:.9}
+.rebung{height:18px;background:var(--rebung) repeat-x bottom/auto 100%}
+
+/* ---------- panels ---------- */
+.sec{padding:clamp(70px,14vh,140px) 6vw}
+.panel{position:relative;max-width:900px;margin:0 auto;padding:clamp(26px,5vw,56px);text-align:center;
+  background:linear-gradient(160deg,rgba(60,20,110,.55),rgba(18,6,40,.7));
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(192,132,252,.55);
+  clip-path:polygon(22px 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%,0 22px);
+  box-shadow:inset 0 0 40px rgba(168,85,247,.25)}
+.panel::before,.panel::after{content:"";position:absolute;left:0;right:0;height:10px;background:var(--rebung) repeat-x center/auto 100%;opacity:.7}
+.panel::before{top:0;transform:scaleY(-1)}
+.panel::after{bottom:0}
+.panel>*+*{margin-top:22px}
+
+/* ---------- reveal ---------- */
+.js .rv{opacity:0;transform:translateY(36px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7vh 5vw 14vh;gap:14px;overflow:hidden}
+.glitch{font-family:'Orbitron';font-weight:900;font-size:clamp(34px,10vw,88px);line-height:1.05;letter-spacing:.04em;
+  background:linear-gradient(180deg,#fff 10%,#d8b4fe 55%,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 18px rgba(168,85,247,.8));animation:glitch 5s infinite}
+.glitch i{font-style:normal;color:var(--neon);-webkit-text-fill-color:var(--neon);padding:0 .15em}
+@keyframes glitch{0%,92%,100%{transform:none;filter:drop-shadow(0 0 18px rgba(168,85,247,.8))}
+  93%{transform:translate(-3px,1px) skewX(-6deg);filter:drop-shadow(-4px 0 0 rgba(103,232,249,.9)) drop-shadow(4px 0 0 rgba(232,121,249,.9))}
+  95%{transform:translate(3px,-1px) skewX(5deg);filter:drop-shadow(4px 0 0 rgba(103,232,249,.9)) drop-shadow(-4px 0 0 rgba(232,121,249,.9))}
+  97%{transform:translate(-1px,0)}}
+.duo{display:flex;align-items:flex-end;justify-content:center;gap:clamp(4px,3vw,40px);margin:6px 0 0}
+.beat{width:clamp(34px,7vw,64px);margin-bottom:clamp(60px,12vw,140px);filter:drop-shadow(0 0 12px #e879f9);animation:beat 1.2s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.22)}30%{transform:scale(1)}45%{transform:scale(1.14)}}
+.tag{font-family:'Orbitron';font-weight:700;font-size:clamp(15px,4vw,26px);letter-spacing:.08em;color:var(--ink)}
+.tag .hl{color:var(--neon);text-shadow:0 0 14px rgba(232,121,249,.9)}
+.tagline{font-size:clamp(18px,3vw,24px);color:var(--mute);letter-spacing:.14em;text-transform:uppercase}
+.bigdate{font-family:'Orbitron';font-weight:900;font-size:clamp(30px,8vw,64px);letter-spacing:.14em;color:#fff;text-shadow:0 0 8px #fff,0 0 22px var(--p2),0 0 48px var(--p1)}
+.btn{display:inline-block;margin-top:8px;padding:15px 34px;font-family:'Orbitron';font-weight:700;font-size:clamp(12px,3vw,15px);letter-spacing:.28em;text-decoration:none;color:#fff;cursor:pointer;border:0;
+  background:linear-gradient(90deg,var(--p1),var(--neon));
+  clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  box-shadow:0 0 30px rgba(168,85,247,.8);animation:pulse 2.4s infinite;transition:transform .2s}
+.btn:hover{transform:translateY(-3px) scale(1.03)}
+@keyframes pulse{0%,100%{filter:drop-shadow(0 0 6px #a855f7)}50%{filter:drop-shadow(0 0 20px #e879f9)}}
+.hint{font-family:'Orbitron';font-size:10px;letter-spacing:.4em;color:var(--mute);margin-top:10px;animation:bob 1.6s infinite}
+@keyframes bob{50%{transform:translateY(7px)}}
+.gadang{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;max-height:42vh;color:#c084fc;opacity:.35;z-index:-1;filter:drop-shadow(0 0 8px #a855f7);pointer-events:none}
+
+/* ---------- Funko 3D ---------- */
+[data-fig]{width:var(--fw,200px);flex:none}
+.persp{perspective:1000px;position:relative;width:var(--fw,200px)}
+.persp.float{animation:float 3.6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.tfm{transform-style:preserve-3d;will-change:transform;position:relative}
+.swing,.sw{transform-style:preserve-3d;position:relative}
+.swing{animation:swing 6.5s ease-in-out infinite alternate}
+@keyframes swing{from{transform:rotateY(-13deg)}to{transform:rotateY(13deg)}}
+.ly{position:absolute;inset:0;transform:translateZ(var(--z,0px));pointer-events:none}
+.ly.front{position:relative;inset:auto}
+.ly svg{display:block;width:100%;height:auto;filter:brightness(var(--b,1))}
+.halo{position:absolute;left:50%;bottom:4%;width:150%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,28%) translateZ(-40px);
+  background:radial-gradient(circle,rgba(168,85,247,.5),rgba(124,58,237,.15) 45%,transparent 65%);pointer-events:none}
+.gshadow{position:absolute;left:8%;right:8%;bottom:-3%;height:8%;border-radius:50%;background:radial-gradient(ellipse,rgba(232,121,249,.65),transparent 70%);filter:blur(4px);transform:translateZ(-30px);pointer-events:none}
+
+/* ---------- invite ---------- */
+.when{display:flex;flex-direction:column;align-items:center;gap:4px}
+.when .day{font-family:'Orbitron';letter-spacing:.4em;color:var(--cyan);font-size:14px;text-transform:uppercase}
+.when .date{font-family:'Orbitron';font-weight:700;font-size:clamp(24px,6vw,44px);color:#fff;text-shadow:0 0 18px var(--p2)}
+.events{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ev{padding:20px 14px;border:1px solid rgba(251,191,36,.5);background:rgba(251,191,36,.06);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
+.ev .k{display:block;font-family:'Orbitron';font-size:12px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.ev b{font-family:'Orbitron';font-size:clamp(17px,3.6vw,24px);color:#fff}
+.where{display:flex;flex-direction:column;align-items:center;gap:4px}
+.where svg{width:30px;color:var(--neon);filter:drop-shadow(0 0 8px var(--neon))}
+.where b{font-family:'Orbitron';font-size:clamp(20px,4.5vw,32px);letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.where a{margin-top:10px;font-family:'Orbitron';font-size:11px;letter-spacing:.3em;color:var(--cyan);text-decoration:none;border-bottom:1px solid var(--cyan)}
+
+/* ---------- couple ---------- */
+.head{text-align:center;margin-bottom:clamp(30px,6vh,70px)}
+.head>*+*{margin-top:12px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,4vw,56px);max-width:1100px;margin:0 auto}
+.person{padding:clamp(22px,3vw,40px) clamp(14px,2vw,30px) 34px;display:flex;flex-direction:column;align-items:center}
+.person .slot{--fw:clamp(150px,22vw,260px);margin:6px 0 22px}
+.role{font-family:'Orbitron';letter-spacing:.4em;font-size:12px;color:var(--cyan)}
+.name{font-family:'Orbitron';font-weight:700;font-size:clamp(19px,3vw,30px);letter-spacing:.06em;line-height:1.25;color:#fff;text-shadow:0 0 16px var(--p2)}
+.par{color:var(--mute);font-size:clamp(16px,2vw,19px)}
+.par b{color:#fff;font-weight:600}
+
+/* ---------- story ---------- */
+.story{height:560vh;position:relative}
+.sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.stage{position:absolute;inset:0;perspective:1100px;perspective-origin:50% 62%;--fw:clamp(120px,min(32vw,31vh),250px)}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(10,3,20,.7),transparent 25%,transparent 65%,rgba(10,3,20,.85))}
+.walker{position:absolute;left:50%;bottom:31%;width:var(--fw);margin-left:calc(var(--fw)/-2);transform-style:preserve-3d;transform-origin:50% 100%;will-change:transform;z-index:2}
+.linkheart{position:absolute;left:50%;bottom:calc(31% + var(--fw)*1.72);width:clamp(44px,9vw,84px);opacity:0;transform:translateX(-50%) scale(.6);z-index:3;color:var(--neon);filter:drop-shadow(0 0 16px #e879f9);animation:beat 1.2s infinite}
+.confetti{position:absolute;left:50%;bottom:calc(31% + var(--fw)*1.2);z-index:3;pointer-events:none}
+.confetti i{position:absolute;font-style:normal;color:var(--neon);opacity:0;text-shadow:0 0 10px var(--neon)}
+.burst .confetti i{animation:rise 2.6s ease-out infinite;animation-delay:var(--d)}
+@keyframes rise{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-210px) scale(1.2)}}
+.hud{position:absolute;top:0;left:0;right:0;z-index:6;padding:calc(env(safe-area-inset-top,0px) + 18px) 5vw 0;font-family:'Orbitron';font-size:clamp(9px,2.4vw,12px);letter-spacing:.22em;color:var(--cyan);text-shadow:0 0 10px rgba(103,232,249,.6)}
+.hud .row{display:flex;justify-content:space-between}
+.pbar{margin-top:10px;height:3px;background:rgba(192,132,252,.25)}
+.pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--neon));box-shadow:0 0 12px var(--neon)}
+.title-s{position:absolute;top:calc(env(safe-area-inset-top,0px) + 62px);left:0;right:0;text-align:center;z-index:5}
+.chapters{position:absolute;left:0;right:0;bottom:0;height:31%;padding:0 6vw 3vh;display:grid;place-items:center;z-index:5;background:linear-gradient(to top,rgba(10,3,20,.96) 40%,transparent)}
+.chap{grid-area:1/1;max-width:780px;text-align:center;opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s;pointer-events:none}
+.chap.on{opacity:1;transform:none}
+.chap p{font-size:clamp(17px,2.9vw,27px);line-height:1.4;font-weight:500;text-shadow:0 0 18px rgba(168,85,247,.9)}
+.chap .forever{display:block;margin-top:14px;font-family:'Orbitron';font-weight:900;font-size:clamp(20px,5vw,40px);letter-spacing:.1em;color:#fff;text-shadow:0 0 8px #fff,0 0 24px var(--neon),0 0 50px var(--p1)}
+
+/* ---------- gift ---------- */
+.acc{display:grid;gap:10px;padding:22px;border:1px dashed rgba(103,232,249,.6);background:rgba(103,232,249,.05);text-align:left;font-size:clamp(16px,3vw,20px)}
+.acc div{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.acc span{color:var(--mute);letter-spacing:.1em;text-transform:uppercase;font-size:.8em}
+.acc b{font-family:'Orbitron';font-size:.95em;color:#fff}
+
+footer{padding:clamp(70px,12vh,120px) 6vw 0;text-align:center;overflow:hidden}
+footer .big{font-family:'Orbitron';font-weight:900;font-size:clamp(22px,5.5vw,46px);line-height:1.25;letter-spacing:.06em;color:#fff;text-shadow:0 0 8px #fff,0 0 28px var(--p2),0 0 60px var(--p1)}
+footer .tag{margin-top:22px}
+footer .gadang{position:relative;display:block;margin:40px auto 0;opacity:.5;max-height:240px;z-index:0}
+
+@media (max-width:760px){
+  .pair{grid-template-columns:1fr}
+  .events{grid-template-columns:1fr}
+  .duo{gap:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .swing,.persp.float,.glitch,.beat,.btn,.hint{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- shared gradients for the Funko figures -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="gSkin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe3cb"/><stop offset="1" stop-color="#eab08a"/></linearGradient>
+  <linearGradient id="gHijab" gradientUnits="userSpaceOnUse" x1="20" y1="0" x2="220" y2="240"><stop offset="0" stop-color="#ede0ff"/><stop offset=".55" stop-color="#a78bfa"/><stop offset="1" stop-color="#6d28d9"/></linearGradient>
+  <linearGradient id="gKebaya" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9333ea"/><stop offset="1" stop-color="#3b0764"/></linearGradient>
+  <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1a8"/><stop offset=".5" stop-color="#f59e0b"/><stop offset="1" stop-color="#b45309"/></linearGradient>
+  <linearGradient id="gGroom" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f1370"/><stop offset="1" stop-color="#0d0420"/></linearGradient>
+  <linearGradient id="gSaluak" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#4c1d95"/></linearGradient>
+  <linearGradient id="gShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b0764" stop-opacity="0"/><stop offset="1" stop-color="#3b0764" stop-opacity=".3"/></linearGradient>
+  <radialGradient id="gShine" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".65"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <pattern id="pSongket" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M8 1 15 8 8 15 1 8Z" fill="none" stroke="#fbbf24" stroke-width="1"/><circle cx="8" cy="8" r="1.4" fill="#fde68a"/></pattern>
+</defs></svg>
+
+<canvas id="rain"></canvas>
+<div class="floor" id="floor"></div>
+<div class="scan"></div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="hero">
+  <svg class="gadang" viewBox="0 0 600 220" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M40 126 Q60 116 70 72 Q78 32 96 6 Q104 54 130 98 Q170 118 210 114 Q226 72 250 14 Q262 62 290 106 Q300 110 310 106 Q338 62 350 14 Q374 72 390 114 Q430 118 470 98 Q496 54 504 6 Q522 32 530 72 Q540 116 560 126 L560 140 Q300 116 40 140Z"/>
+      <path d="M62 140H538V172H62Z"/>
+      <path d="M62 172H538"/>
+      <path d="M86 172V212M150 172V212M214 172V212M278 172V212M342 172V212M406 172V212M470 172V212M514 172V212"/>
+      <path d="M30 212H570"/>
+      <path d="M62 156l14-10 14 10-14 10zM110 156l14-10 14 10-14 10zM158 156l14-10 14 10-14 10zM206 156l14-10 14 10-14 10zM254 156l14-10 14 10-14 10zM302 156l14-10 14 10-14 10zM350 156l14-10 14 10-14 10zM398 156l14-10 14 10-14 10zM446 156l14-10 14 10-14 10zM494 156l14-10 14 10-14 10z"/>
+    </g>
+  </svg>
+
+  <div class="eyebrow rv">The Wedding of</div>
+  <h1 class="glitch rv">ALIFA<i>&amp;</i>DANIEL</h1>
+
+  <div class="duo rv">
+    <div data-fig="groom" data-spin="1" style="--fw:clamp(120px,24vw,230px)"></div>
+    <svg class="beat" viewBox="0 0 24 24" fill="currentColor" style="color:#e879f9"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.6 4.5c2 0 3.7 1.1 5.4 3.2 1.7-2.1 3.4-3.2 5.4-3.2 3.6 0 5.7 3.8 4.2 7.3C19.500 16.400 12 21 12 21z"/></svg>
+    <div data-fig="bride" data-spin="-1" style="--fw:clamp(120px,24vw,230px)"></div>
+  </div>
+
+  <div class="tag rv"><span class="hl">#EXA</span>ctlyfor<span class="hl">ALIFA</span></div>
+  <div class="tagline rv">Exactly where we belong.</div>
+  <div class="bigdate rv">05 · 12 · 2026</div>
+  <a class="btn rv" href="#invite">[ OPEN INVITATION ]</a>
+  <div class="hint">SCROLL ▾</div>
+</header>
+
+<div class="rebung"></div>
+
+<!-- ================= INVITE ================= -->
+<section class="sec" id="invite">
+  <div class="panel rv">
+    <div class="eyebrow">Save the date</div>
+    <h2 class="h2">You're Invited</h2>
+    <p class="sub">With the blessings of Allah SWT,<br>we joyfully invite you to celebrate<br>the beginning of our forever.</p>
+    <div class="when"><span class="day">Saturday</span><span class="date">5 December 2026</span></div>
+    <div class="events">
+      <div class="ev"><span class="k">Akad Nikah</span><b>08.00 AM</b></div>
+      <div class="ev"><span class="k">Wedding Reception</span><b>11.00 AM – 03.00 PM</b></div>
+    </div>
+    <div class="where">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.800 7-13a7 7 0 0 0-7-7zm0 9.500A2.500 2.500 0 1 1 12 6.500a2.500 2.500 0 0 1 0 5z"/></svg>
+      <b>Dharmein Hotel</b>
+      <span class="sub">Jakarta, Indonesia</span>
+      <a href="https://www.google.com/maps/search/?api=1&query=Dharmein+Hotel+Jakarta" target="_blank" rel="noopener">VIEW MAP</a>
+    </div>
+  </div>
+</section>
+
+<div class="band"></div>
+
+<!-- ================= COUPLE ================= -->
+<section class="sec" id="couple">
+  <div class="head rv">
+    <div class="eyebrow">Meet the</div>
+    <h2 class="h2">The Bride &amp; Groom</h2>
+    <p class="sub">Two hearts, two families,<br>one beautiful beginning.</p>
+  </div>
+  <div class="pair">
+    <article class="panel person rv">
+      <div class="role">THE BRIDE</div>
+      <div class="slot" data-fig="bride" data-spin="-1"></div>
+      <div class="name">Alifa Sayyidina<br>Azzahra</div>
+      <p class="par">The First Daughter of<br><b>Mr. Gusti Iskandar</b><br>&amp; <b>Mrs. Helfa Syam</b></p>
+    </article>
+    <article class="panel person rv">
+      <div class="role">THE GROOM</div>
+      <div class="slot" data-fig="groom" data-spin="1"></div>
+      <div class="name">Daniel Recksa<br>Yudda</div>
+      <p class="par">The Beloved Son of<br><b>Mr. Yudi Daniel Agustin</b><br>&amp; <b>Mrs. Dede Wachida</b></p>
+    </article>
+  </div>
+</section>
+
+<div class="band"></div>
+
+<!-- ================= STORY (scroll-driven) ================= -->
+<section class="story" id="story">
+  <div class="sticky">
+    <div class="stage" id="stage">
+      <div class="hud">
+        <div class="row"><span id="chNo">CHAPTER 01 / 05</span><span id="sync">SYNC 000%</span></div>
+        <div class="pbar"><i id="pfill"></i></div>
+      </div>
+      <div class="title-s">
+        <div class="eyebrow">Our Love Story</div>
+      </div>
+
+      <div class="walker" id="gWalk"></div>
+      <div class="walker" id="bWalk"></div>
+
+      <svg class="linkheart" id="lheart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.6 4.5c2 0 3.7 1.1 5.4 3.2 1.7-2.1 3.4-3.2 5.4-3.2 3.6 0 5.7 3.8 4.2 7.3C19.500 16.400 12 21 12 21z"/></svg>
+      <div class="confetti" id="confetti"></div>
+
+      <div class="chapters">
+        <div class="chap on"><p>Every love story has its own beautiful way of finding home.</p></div>
+        <div class="chap"><p>Some stories begin with a coincidence, while others feel like they were written long before two hearts ever met.</p></div>
+        <div class="chap"><p>Ours was a journey of laughter, love, lessons, and countless little moments that slowly became something extraordinary.</p></div>
+        <div class="chap"><p>Through every chapter, we learned that love is not about having a perfect story, but about finding someone worth choosing, again and again.</p></div>
+        <div class="chap"><p>And if we had to live this story all over again,<br>we would still choose each other.</p><span class="forever">This is our forever.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="band"></div>
+
+<!-- ================= GIFT ================= -->
+<section class="sec" id="gift">
+  <div class="panel rv">
+    <div class="eyebrow">With love</div>
+    <h2 class="h2">Wishes &amp; Gift</h2>
+    <p class="sub">Your presence and prayers<br>are the most precious gifts to us.</p>
+    <p>For those who wish to send a wedding gift,<br>we would be grateful for your kindness.</p>
+    <div class="acc">
+      <div><span>Bank</span><b>[Bank Name]</b></div>
+      <div><span>Account Name</span><b>[Account Name]</b></div>
+      <div><span>Account Number</span><b id="accNo">[Account Number]</b></div>
+    </div>
+    <button class="btn" id="copyBtn" type="button">[ COPY ACCOUNT NUMBER ]</button>
+    <p class="sub">Thank you for your love and generosity.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="big rv">We can't wait to<br>celebrate with you!</div>
+  <div class="tag rv"><span class="hl">#EXA</span>ctlyfor<span class="hl">ALIFA</span></div>
+  <div class="tagline rv" style="margin-top:10px">05 · 12 · 2026 &nbsp;·&nbsp; Dharmein Hotel, Jakarta</div>
+  <svg class="gadang" viewBox="0 0 600 220" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M40 126 Q60 116 70 72 Q78 32 96 6 Q104 54 130 98 Q170 118 210 114 Q226 72 250 14 Q262 62 290 106 Q300 110 310 106 Q338 62 350 14 Q374 72 390 114 Q430 118 470 98 Q496 54 504 6 Q522 32 530 72 Q540 116 560 126 L560 140 Q300 116 40 140Z"/>
+      <path d="M62 140H538V172H62Z"/><path d="M86 172V212M150 172V212M214 172V212M278 172V212M342 172V212M406 172V212M470 172V212M514 172V212"/><path d="M30 212H570"/>
+    </g>
+  </svg>
+  <div class="rebung"></div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+const $=s=>document.querySelector(s);
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const sm=t=>t*t*(3-2*t);
+
+/* ============ Funko SVG builders ============ */
+const eye=(x,y)=>`<circle cx="${x}" cy="${y}" r="11" fill="#12061f"/><circle cx="${x-3.6}" cy="${y-4}" r="3.7" fill="#fff"/><circle cx="${x+3.6}" cy="${y+3.6}" r="1.6" fill="#fff" opacity=".85"/>`;
+const feet=`<rect x="70" y="300" width="46" height="32" rx="13" fill="#1d0b3a"/><rect x="124" y="300" width="46" height="32" rx="13" fill="#1d0b3a"/><rect x="74" y="304" width="14" height="5" rx="2.500" fill="#fff" opacity=".18"/><rect x="128" y="304" width="14" height="5" rx="2.500" fill="#fff" opacity=".18"/>`;
+
+function suntiang(){
+  let s='';
+  [-80,-64,-48,-32,-16,0,16,32,48,64,80].forEach((a,i)=>{
+    const r=a*Math.PI/180, dx=Math.sin(r), dy=-Math.cos(r);
+    const bx=120+80*Math.sin(r), by=70-46*Math.cos(r);
+    const L=(i%2?46:62)-Math.abs(a)*.22;
+    const tx=bx+dx*L, ty=by+dy*L, px=-dy*5, py=dx*5;
+    s+=`<path d="M${bx-px} ${by-py}L${tx} ${ty}L${bx+px} ${by+py}Z" fill="url(#gGold)" stroke="#92400e" stroke-width=".6"/>`+
+       `<circle cx="${tx}" cy="${ty}" r="${i%2?3.6:4.8}" fill="${i%2?'#f472b6':'url(#gGold)'}" stroke="#92400e" stroke-width=".8"/>`;
+  });
+  return s;
+}
+
+function brideSVG(){
+  return `<svg viewBox="0 -50 240 390" xmlns="http://www.w3.org/2000/svg">
+  ${feet}
+  <path d="M76 172Q76 166 88 166L152 166Q164 166 164 172L174 306Q120 320 66 306Z" fill="url(#gKebaya)"/>
+  <path d="M70 262L170 262L174 306Q120 320 66 306Z" fill="#4c1d95"/>
+  <path d="M70 262L170 262L174 306Q120 320 66 306Z" fill="url(#pSongket)"/>
+  <path d="M70 262L170 262" stroke="#fbbf24" stroke-width="4"/>
+  <g transform="rotate(10 66 190)"><rect x="52" y="188" width="28" height="78" rx="14" fill="url(#gKebaya)"/><rect x="52" y="248" width="28" height="9" fill="#fbbf24"/></g>
+  <g transform="rotate(-10 174 190)"><rect x="160" y="188" width="28" height="78" rx="14" fill="url(#gKebaya)"/><rect x="160" y="248" width="28" height="9" fill="#fbbf24"/></g>
+  <circle cx="53" cy="273" r="10" fill="url(#gSkin)"/><circle cx="187" cy="273" r="10" fill="url(#gSkin)"/>
+  <path d="M44 150Q34 212 70 234Q120 252 170 234Q206 212 196 150Z" fill="url(#gHijab)"/>
+  <path d="M70 234Q120 252 170 234" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none"/>
+  <circle cx="120" cy="214" r="6" fill="url(#gGold)" stroke="#92400e" stroke-width=".8"/><circle cx="120" cy="214" r="2.200" fill="#f472b6"/>
+  ${suntiang()}
+  <rect x="30" y="20" width="180" height="172" rx="64" fill="url(#gHijab)"/>
+  <path d="M42 100Q54 44 118 32" stroke="#fff" stroke-opacity=".4" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M46 66Q120 -4 194 66" stroke="#fbbf24" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M46 66Q120 -4 194 66" stroke="#fff7c2" stroke-opacity=".6" stroke-width="2" fill="none" stroke-linecap="round" transform="translate(0 -2)"/>
+  <circle cx="120" cy="29" r="12" fill="url(#gGold)" stroke="#92400e" stroke-width="1"/><circle cx="120" cy="29" r="5.500" fill="#f472b6"/>
+  <circle cx="72" cy="42" r="7" fill="url(#gGold)" stroke="#92400e" stroke-width=".8"/><circle cx="72" cy="42" r="3" fill="#c084fc"/>
+  <circle cx="168" cy="42" r="7" fill="url(#gGold)" stroke="#92400e" stroke-width=".8"/><circle cx="168" cy="42" r="3" fill="#c084fc"/>
+  <g fill="url(#gGold)" stroke="#92400e" stroke-width=".6"><path d="M42 76V114" stroke="#fbbf24" stroke-width="1.500"/><circle cx="42" cy="84" r="3.800"/><circle cx="42" cy="98" r="3.800"/><circle cx="42" cy="112" r="4.400"/>
+  <path d="M198 76V114" stroke="#fbbf24" stroke-width="1.500"/><circle cx="198" cy="84" r="3.800"/><circle cx="198" cy="98" r="3.800"/><circle cx="198" cy="112" r="4.400"/></g>
+  <rect x="52" y="56" width="136" height="122" rx="54" fill="#5b21b6"/>
+  <rect x="52" y="56" width="136" height="122" rx="54" fill="none" stroke="#f3e8ff" stroke-opacity=".7" stroke-width="2.500"/>
+  <rect x="58" y="62" width="124" height="110" rx="48" fill="url(#gSkin)"/>
+  <rect x="58" y="62" width="124" height="110" rx="48" fill="url(#gShade)"/>
+  <ellipse cx="92" cy="82" rx="26" ry="11" fill="url(#gShine)"/>
+  ${eye(92,118)}${eye(148,118)}
+  <path d="M80 106l-6-4M160 106l6-4" stroke="#12061f" stroke-width="2.500" stroke-linecap="round"/>
+  <ellipse cx="76" cy="142" rx="11" ry="6.500" fill="#fb7185" opacity=".55"/><ellipse cx="164" cy="142" rx="11" ry="6.500" fill="#fb7185" opacity=".55"/>
+  <path d="M110 144Q120 153 130 144" stroke="#b4535f" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </svg>`;
+}
+
+function groomSVG(){
+  return `<svg viewBox="0 -50 240 390" xmlns="http://www.w3.org/2000/svg">
+  ${feet}
+  <path d="M76 172Q76 166 88 166L152 166Q164 166 164 172L174 306Q120 320 66 306Z" fill="url(#gGroom)"/>
+  <path d="M120 176V250" stroke="#fbbf24" stroke-width="2.500"/>
+  <circle cx="108" cy="196" r="3.200" fill="#fbbf24"/><circle cx="108" cy="214" r="3.200" fill="#fbbf24"/><circle cx="108" cy="232" r="3.200" fill="#fbbf24"/>
+  <path d="M98 168L120 194L142 168" stroke="#fbbf24" stroke-width="5" fill="none" stroke-linejoin="round"/>
+  <path d="M70 246L170 246L174 306Q120 320 66 306Z" fill="#6d28d9"/>
+  <path d="M70 246L170 246L174 306Q120 320 66 306Z" fill="url(#pSongket)"/>
+  <path d="M70 246L170 246" stroke="#fbbf24" stroke-width="5"/>
+  <g transform="rotate(10 66 190)"><rect x="52" y="188" width="28" height="78" rx="14" fill="url(#gGroom)"/><rect x="52" y="248" width="28" height="9" fill="#fbbf24"/></g>
+  <g transform="rotate(-10 174 190)"><rect x="160" y="188" width="28" height="78" rx="14" fill="url(#gGroom)"/><rect x="160" y="248" width="28" height="9" fill="#fbbf24"/></g>
+  <circle cx="53" cy="273" r="10" fill="url(#gSkin)"/><circle cx="187" cy="273" r="10" fill="url(#gSkin)"/>
+  <rect x="38" y="26" width="164" height="154" rx="50" fill="url(#gSkin)"/>
+  <path d="M38 84Q38 30 120 28Q202 30 202 84L202 98Q192 74 120 70Q48 74 38 98Z" fill="#14091f"/>
+  <rect x="38" y="90" width="12" height="38" rx="6" fill="#14091f"/><rect x="190" y="90" width="12" height="38" rx="6" fill="#14091f"/>
+  <rect x="38" y="26" width="164" height="154" rx="50" fill="url(#gShade)"/>
+  <path d="M34 72Q34 16 120 12Q206 16 206 72Q120 46 34 72Z" fill="url(#gSaluak)" stroke="#fbbf24" stroke-width="2.500"/>
+  <path d="M34 72Q34 16 120 12Q206 16 206 72Q120 46 34 72Z" fill="url(#pSongket)" opacity=".8"/>
+  <path d="M48 28Q50 -24 98 -42Q88 -6 116 16Z" fill="url(#gSaluak)" stroke="#fbbf24" stroke-width="2.500" stroke-linejoin="round"/>
+  <path d="M60 22Q64 -10 90 -28" stroke="#fde68a" stroke-opacity=".7" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="64" cy="48" r="8" fill="url(#gGold)" stroke="#92400e" stroke-width=".9"/><circle cx="64" cy="48" r="3.500" fill="#e879f9"/>
+  <ellipse cx="88" cy="70" rx="32" ry="10" fill="url(#gShine)"/>
+  ${eye(88,120)}${eye(152,120)}
+  <path d="M76 100Q88 94 100 100M140 100Q152 94 164 100" stroke="#14091f" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <ellipse cx="68" cy="144" rx="11" ry="6.500" fill="#fb7185" opacity=".5"/><ellipse cx="172" cy="144" rx="11" ry="6.500" fill="#fb7185" opacity=".5"/>
+  <path d="M102 146Q111 140 120 145Q129 140 138 146" stroke="#14091f" stroke-width="3.500" stroke-linecap="round" fill="none"/>
+  <path d="M112 154Q120 160 128 154" stroke="#b4535f" stroke-width="2.800" stroke-linecap="round" fill="none"/>
+  </svg>`;
+}
+
+/* extruded "toy" layers: stacked copies in Z, darker toward the back */
+function layers(kind){
+  const svg=kind==='bride'?brideSVG():groomSVG();
+  const N=5; let h='';
+  for(let i=N;i>=1;i--) h+=`<div class="ly" style="--z:${-i*3.6}px;--b:${(1-i*.1).toFixed(2)}">${svg}</div>`;
+  return h+`<div class="ly front">${svg}</div>`;
+}
+function figHTML(kind,spin){
+  return `<div class="persp float"><div class="halo"></div><div class="gshadow"></div>
+    <div class="tfm" data-spin="${spin||1}"><div class="swing">${layers(kind)}</div></div></div>`;
+}
+document.querySelectorAll('[data-fig]').forEach(el=>{
+  el.innerHTML=figHTML(el.dataset.fig,el.dataset.spin);
+  el.firstElementChild.style.width='100%';
+});
+// story walkers (no own perspective: stage supplies it so they truly approach in Z)
+const gW=$('#gWalk'), bW=$('#bWalk');
+gW.innerHTML=`<div class="halo"></div><div class="gshadow"></div><div class="sw">${layers('groom')}</div>`;
+bW.innerHTML=`<div class="halo"></div><div class="gshadow"></div><div class="sw">${layers('bride')}</div>`;
+
+/* ============ reveal ============ */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ============ scroll scenes ============ */
+const spinEls=[...document.querySelectorAll('.tfm[data-spin]')];
+const story=$('#story'), stage=$('#stage');
+const chaps=[...document.querySelectorAll('.chap')];
+const chNo=$('#chNo'), syncEl=$('#sync'), pfill=$('#pfill'), lheart=$('#lheart');
+let mx=0,my=0,ticking=false,lastCh=-1;
+
+// confetti hearts
+(function(){
+  const c=$('#confetti');
+  for(let i=0;i<16;i++){
+    const e=document.createElement('i');
+    e.textContent=i%3?'♥':'✦';
+    e.style.setProperty('--dx',((Math.random()-.5)*340).toFixed(0)+'px');
+    e.style.setProperty('--d',(Math.random()*2.4).toFixed(2)+'s');
+    e.style.fontSize=(14+Math.random()*18).toFixed(0)+'px';
+    e.style.left=((Math.random()-.5)*60).toFixed(0)+'px';
+    c.appendChild(e);
+  }
+})();
+
+function frame(){
+  ticking=false;
+  const vh=innerHeight;
+  document.getElementById('floor').style.setProperty('--gy',(scrollY*.55)%70+'px');
+
+  // figures rotate + come closer as they cross the viewport
+  spinEls.forEach(el=>{
+    const r=el.parentElement.getBoundingClientRect();
+    if(r.bottom<-200||r.top>vh+200) return;
+    const c=clamp((r.top+r.height/2-vh/2)/vh,-1.2,1.2);
+    const dir=+el.dataset.spin;
+    const ry=c*-42*dir+mx*12;
+    const rx=-my*5;
+    const near=1-Math.min(1,Math.abs(c));
+    el.style.transform=`translateZ(${(near*70).toFixed(1)}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+  });
+
+  // story scene
+  const r=story.getBoundingClientRect();
+  if(r.bottom>-50 && r.top<vh+50){
+    const total=story.offsetHeight-vh;
+    const p=clamp(-r.top/total);
+    const q=clamp(p/.84), e=sm(q);
+    const W=stage.clientWidth, fw=gW.offsetWidth;
+    const xs=W*(W<640?.46:.40), xe=fw*.47;
+    const x=lerp(xs,xe,e), z=lerp(-640,50,e);
+    const walking=q<1&&q>0?1:0;
+    const fade=1-sm(clamp((q-.9)/.1));
+    const ph=q*Math.PI*16;
+    const bobG=Math.abs(Math.sin(ph))*16*walking*fade;
+    const bobB=Math.abs(Math.cos(ph))*16*walking*fade;
+    const sway=Math.sin(ph)*3*walking*fade;
+    const ry=lerp(38,10,e);
+    const lean=sm(clamp((p-.84)/.12))*5;
+    gW.style.transform=`translate3d(${-x}px,${-bobG}px,${z}px) rotateY(${ry}deg) rotateZ(${sway+lean}deg)`;
+    bW.style.transform=`translate3d(${x}px,${-bobB}px,${z}px) rotateY(${-ry}deg) rotateZ(${-sway-lean}deg)`;
+
+    const idx=p>.86?4:Math.min(3,Math.floor(q*4));
+    if(idx!==lastCh){chaps.forEach((c,i)=>c.classList.toggle('on',i===idx));lastCh=idx;
+      chNo.textContent='CHAPTER 0'+(idx+1)+' / 05';}
+    const sy=Math.round(p*100);
+    syncEl.textContent=sy>=100?'LINKED ♥':'SYNC '+String(sy).padStart(3,'0')+'%';
+    pfill.style.width=sy+'%';
+    const h=sm(clamp((p-.8)/.12));
+    lheart.style.opacity=h;
+    lheart.style.transform=`translateX(-50%) scale(${(.6+.5*h).toFixed(3)})`;
+    stage.classList.toggle('burst',p>.9);
+  }
+}
+function req(){if(!ticking){ticking=true;requestAnimationFrame(frame)}}
+addEventListener('scroll',req,{passive:true});
+addEventListener('resize',req);
+addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;req()},{passive:true});
+req(); setTimeout(req,300);
+
+/* ============ copy account ============ */
+$('#copyBtn').addEventListener('click',async()=>{
+  const t=$('#accNo').textContent, b=$('#copyBtn'), old=b.textContent;
+  try{await navigator.clipboard.writeText(t)}catch(_){
+    const ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(__){}ta.remove();
+  }
+  b.textContent='[ COPIED ✓ ]';setTimeout(()=>b.textContent=old,1800);
+});
+
+/* ============ digital rain background ============ */
+(function(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const cv=$('#rain'), ctx=cv.getContext('2d'); let w,h,cols,drops;
+  const chars='01ABCDEF◆▲◇';
+  function size(){w=cv.width=innerWidth;h=cv.height=innerHeight;cols=Math.ceil(w/18);drops=Array.from({length:cols},()=>Math.random()*h/18)}
+  size();addEventListener('resize',size);
+  let last=0;
+  (function loop(t){
+    requestAnimationFrame(loop);
+    if(t-last<50) return; last=t;
+    ctx.fillStyle='rgba(10,3,20,.12)';ctx.fillRect(0,0,w,h);
+    ctx.font='14px monospace';
+    for(let i=0;i<cols;i++){
+      const ch=chars[(Math.random()*chars.length)|0];
+      ctx.fillStyle=Math.random()>.96?'#e879f9':'#a855f7';
+      ctx.fillText(ch,i*18,drops[i]*18);
+      if(drops[i]*18>h&&Math.random()>.975)drops[i]=0;
+      drops[i]+=.6;
+    }
+  })(0);
+})();
+</script>
+</body>
+</html>
